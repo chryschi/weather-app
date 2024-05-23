@@ -77,6 +77,8 @@ const getWeatherData = async (location) => {
   const cleanWeatherData = createCleanWeatherData(weatherData);
   console.log("Cleaned up data:");
   console.log(cleanWeatherData);
+
+  displayWeather(cleanWeatherData);
 };
 
 const form = document.getElementById("form");
@@ -86,3 +88,46 @@ form.addEventListener("submit", (event) => {
   let locationInput = document.getElementById("location");
   getWeatherData(locationInput.value);
 });
+
+const displayWeather = (weatherData) => {
+  const currentLocation = document.querySelector(".currentLocation");
+  const location = document.createElement("p");
+  location.textContent = weatherData.location;
+  const country = document.createElement("p");
+  country.textContent = weatherData.country;
+  currentLocation.appendChild(location);
+  currentLocation.appendChild(country);
+
+  const currentIcon = document.querySelector(".currentIcon");
+  const icon = document.createElement("p");
+  icon.textContent = "icon";
+  const conditionText = document.createElement("p");
+  conditionText.textContent = weatherData.conditionText;
+  currentIcon.appendChild(icon);
+  currentIcon.appendChild(conditionText);
+
+  const currentTemp = document.querySelector(".currentTemp");
+  const temp = document.createElement("p");
+  temp.textContent = `${weatherData.currentTempCelsius}°C`;
+  const feelTemp = document.createElement("p");
+  feelTemp.textContent = `feels like ${weatherData.feelsLikeCelsius}°C`;
+  currentTemp.appendChild(temp);
+  currentTemp.appendChild(feelTemp);
+
+  const forecastSection = document.getElementById("forecast");
+  for (let i = 0; i < forecastdays; i++) {
+    const dayElement = forecastSection.children[i];
+    const dayText = document.createElement("p");
+    dayText.textContent = weatherData.forecastdayArray[i].date;
+    const iconDayOne = document.createElement("p");
+    iconDayOne.textContent = "icon";
+    const maxMinTemps = document.createElement("p");
+    maxMinTemps.textContent = `${weatherData.forecastdayArray[i].maxTempCelsius}°C/${weatherData.forecastdayArray[i].minTempCelsius}°C`;
+    const conditionDayOne = document.createElement("p");
+    conditionDayOne.textContent = weatherData.forecastdayArray[i].conditionText;
+    dayElement.appendChild(dayText);
+    dayElement.appendChild(iconDayOne);
+    dayElement.appendChild(maxMinTemps);
+    dayElement.appendChild(conditionDayOne);
+  }
+};

@@ -13,6 +13,8 @@ const createCleanWeatherData = (weatherObject) => {
   const country = weatherObject.location.country;
   const currentTempCelsius = Math.round(weatherObject.current.temp_c);
   const currentTempFahrenheit = Math.round(weatherObject.current.temp_f);
+  const currentConditionText = weatherObject.current.condition.text;
+  const currentConditionIconUrl = weatherObject.current.condition.icon;
   const feelsLikeCelsius = Math.round(weatherObject.current.feelslike_c);
   const feelsLikeFahrenheit = Math.round(weatherObject.current.feelslike_f);
   const humidity = weatherObject.current.humidity;
@@ -34,7 +36,7 @@ const createCleanWeatherData = (weatherObject) => {
     const maxTempFahrenheit = Math.round(forecastDay.day.maxtemp_f);
     const conditionCode = forecastDay.day.condition.code;
     const conditionText = forecastDay.day.condition.text;
-    const conditionIcon = forecastDay.day.condition.icon;
+    const conditionIconUrl = forecastDay.day.condition.icon;
     const forecastDayObject = {
       day,
       minTempCelsius,
@@ -43,7 +45,7 @@ const createCleanWeatherData = (weatherObject) => {
       maxTempFahrenheit,
       conditionCode,
       conditionText,
-      conditionIcon,
+      conditionIconUrl,
     };
     forecastdayArray.push(forecastDayObject);
   }
@@ -54,6 +56,8 @@ const createCleanWeatherData = (weatherObject) => {
     country,
     currentTempCelsius,
     currentTempFahrenheit,
+    currentConditionText,
+    currentConditionIconUrl,
     feelsLikeCelsius,
     feelsLikeFahrenheit,
     humidity,
@@ -112,12 +116,14 @@ const displayWeather = (weatherData) => {
 
   const icon = document.createElement("div");
   icon.classList.add("currentIcon");
-  icon.textContent = "icon";
+  const img = document.createElement("img");
+  img.src = "https:" + weatherData.currentConditionIconUrl;
+  icon.appendChild(img);
   currentWeather.appendChild(icon);
 
   const conditionText = document.createElement("div");
   conditionText.classList.add("currentConditionText");
-  conditionText.textContent = weatherData.forecastdayArray[0].conditionText;
+  conditionText.textContent = weatherData.currentConditionText;
   currentWeather.appendChild(conditionText);
 
   const temp = document.createElement("div");
@@ -137,7 +143,11 @@ const displayWeather = (weatherData) => {
     dayText.classList.add("day");
     dayText.textContent = weatherData.forecastdayArray[i].day;
     const iconDayOne = document.createElement("p");
-    iconDayOne.textContent = "icon";
+    const imgForecast = document.createElement("img");
+    imgForecast.src =
+      "https:" + weatherData.forecastdayArray[i].conditionIconUrl;
+    iconDayOne.appendChild(imgForecast);
+
     const maxMinTemps = document.createElement("p");
     maxMinTemps.textContent = `${weatherData.forecastdayArray[i].maxTempCelsius}°C/${weatherData.forecastdayArray[i].minTempCelsius}°C`;
     const conditionDayOne = document.createElement("p");

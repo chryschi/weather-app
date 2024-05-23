@@ -79,4 +79,10 @@ const getWeatherData = async (location) => {
   console.log(cleanWeatherData);
 };
 
-getWeatherData(location);
+const form = document.getElementById("form");
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  let locationInput = document.getElementById("location");
+  getWeatherData(locationInput.value);
+});

@@ -101,6 +101,11 @@ section {
   margin-bottom: 10px;
 }
 
+.day {
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 1.4rem;
+}
+
 footer {
   display: flex;
   flex-direction: row;

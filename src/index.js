@@ -11,25 +11,32 @@ const createCleanWeatherData = (weatherObject) => {
   const location = weatherObject.location.name;
   const region = weatherObject.location.region;
   const country = weatherObject.location.country;
-  const currentTempCelsius = weatherObject.current.temp_c;
-  const currentTempFahrenheit = weatherObject.current.temp_f;
-  const feelsLikeCelsius = weatherObject.current.feelslike_c;
-  const feelsLikeFahrenheit = weatherObject.current.feelslike_f;
+  const currentTempCelsius = Math.round(weatherObject.current.temp_c);
+  const currentTempFahrenheit = Math.round(weatherObject.current.temp_f);
+  const feelsLikeCelsius = Math.round(weatherObject.current.feelslike_c);
+  const feelsLikeFahrenheit = Math.round(weatherObject.current.feelslike_f);
   const humidity = weatherObject.current.humidity;
 
   let forecastdayArray = [];
   for (let i = 0; i < forecastdays; i++) {
     const forecastDay = weatherObject.forecast.forecastday[i];
-    const date = forecastDay.date;
-    const minTempCelsius = forecastDay.day.mintemp_c;
-    const maxTempCelsius = forecastDay.day.maxtemp_c;
-    const minTempFahrenheit = forecastDay.day.mintemp_f;
-    const maxTempFahrenheit = forecastDay.day.maxtemp_f;
+    let day;
+    if (i == 0) {
+      day = "Today";
+    } else {
+      const date = new Date(forecastDay.date);
+      day = new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date);
+    }
+
+    const minTempCelsius = Math.round(forecastDay.day.mintemp_c);
+    const maxTempCelsius = Math.round(forecastDay.day.maxtemp_c);
+    const minTempFahrenheit = Math.round(forecastDay.day.mintemp_f);
+    const maxTempFahrenheit = Math.round(forecastDay.day.maxtemp_f);
     const conditionCode = forecastDay.day.condition.code;
     const conditionText = forecastDay.day.condition.text;
     const conditionIcon = forecastDay.day.condition.icon;
     const forecastDayObject = {
-      date,
+      day,
       minTempCelsius,
       maxTempCelsius,
       minTempFahrenheit,
@@ -127,7 +134,8 @@ const displayWeather = (weatherData) => {
   for (let i = 0; i < forecastdays; i++) {
     const dayElement = forecastSection.children[i];
     const dayText = document.createElement("p");
-    dayText.textContent = weatherData.forecastdayArray[i].date;
+    dayText.classList.add("day");
+    dayText.textContent = weatherData.forecastdayArray[i].day;
     const iconDayOne = document.createElement("p");
     iconDayOne.textContent = "icon";
     const maxMinTemps = document.createElement("p");

@@ -55,6 +55,7 @@ const createCleanWeatherData = (weatherObject) => {
 };
 
 const getWeatherData = async (location) => {
+  clearDisplay();
   const response = await fetch(
     `https://api.weatherapi.com/v1/forecast.json?key=6e4aa9685cba4408b05220807242205&q=${location}&days=${forecastdays}`
   );
@@ -129,5 +130,12 @@ const displayWeather = (weatherData) => {
     dayElement.appendChild(iconDayOne);
     dayElement.appendChild(maxMinTemps);
     dayElement.appendChild(conditionDayOne);
+  }
+};
+
+const clearDisplay = () => {
+  const currentWeather = document.getElementsByTagName("div");
+  for (let i = 0; i < currentWeather.length; i++) {
+    currentWeather[i].innerHTML = "";
   }
 };

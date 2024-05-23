@@ -103,7 +103,7 @@ const displayWeather = (weatherData) => {
   const icon = document.createElement("p");
   icon.textContent = "icon";
   const conditionText = document.createElement("p");
-  conditionText.textContent = weatherData.conditionText;
+  conditionText.textContent = weatherData.forecastdayArray[0].conditionText;
   currentIcon.appendChild(icon);
   currentIcon.appendChild(conditionText);
 

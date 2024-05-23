@@ -91,29 +91,37 @@ form.addEventListener("submit", (event) => {
 });
 
 const displayWeather = (weatherData) => {
-  const currentLocation = document.querySelector(".currentLocation");
-  const location = document.createElement("p");
+  const currentWeather = document.getElementById("currentWeather");
+
+  const location = document.createElement("div");
+  location.classList.add("location");
   location.textContent = weatherData.location;
-  const country = document.createElement("p");
+  currentWeather.appendChild(location);
+
+  const country = document.createElement("div");
+  country.classList.add("country");
   country.textContent = weatherData.country;
-  currentLocation.appendChild(location);
-  currentLocation.appendChild(country);
+  currentWeather.appendChild(country);
 
-  const currentIcon = document.querySelector(".currentIcon");
-  const icon = document.createElement("p");
+  const icon = document.createElement("div");
+  icon.classList.add("currentIcon");
   icon.textContent = "icon";
-  const conditionText = document.createElement("p");
-  conditionText.textContent = weatherData.forecastdayArray[0].conditionText;
-  currentIcon.appendChild(icon);
-  currentIcon.appendChild(conditionText);
+  currentWeather.appendChild(icon);
 
-  const currentTemp = document.querySelector(".currentTemp");
-  const temp = document.createElement("p");
+  const conditionText = document.createElement("div");
+  conditionText.classList.add("currentConditionText");
+  conditionText.textContent = weatherData.forecastdayArray[0].conditionText;
+  currentWeather.appendChild(conditionText);
+
+  const temp = document.createElement("div");
+  temp.classList.add("currentTemp");
   temp.textContent = `${weatherData.currentTempCelsius}°C`;
-  const feelTemp = document.createElement("p");
+  currentWeather.appendChild(temp);
+
+  const feelTemp = document.createElement("div");
+  feelTemp.classList.add("feelTemp");
   feelTemp.textContent = `feels like ${weatherData.feelsLikeCelsius}°C`;
-  currentTemp.appendChild(temp);
-  currentTemp.appendChild(feelTemp);
+  currentWeather.appendChild(feelTemp);
 
   const forecastSection = document.getElementById("forecast");
   for (let i = 0; i < forecastdays; i++) {

@@ -102,39 +102,16 @@ form.addEventListener("submit", (event) => {
 });
 
 const displayWeather = (weatherData) => {
-  const currentWeather = document.getElementById("currentWeather");
-
-  const location = document.createElement("div");
-  location.classList.add("location");
+  const location = document.querySelector(".location");
   location.textContent = weatherData.location;
-  currentWeather.appendChild(location);
 
-  const country = document.createElement("div");
-  country.classList.add("country");
-  country.textContent = weatherData.country;
-  currentWeather.appendChild(country);
-
-  const icon = document.createElement("div");
-  icon.classList.add("currentIcon");
+  const icon = document.querySelector(".currentIcon");
   const img = document.createElement("img");
   img.src = "https:" + weatherData.currentConditionIconUrl;
   icon.appendChild(img);
-  currentWeather.appendChild(icon);
 
-  const conditionText = document.createElement("div");
-  conditionText.classList.add("currentConditionText");
-  conditionText.textContent = weatherData.currentConditionText;
-  currentWeather.appendChild(conditionText);
-
-  const temp = document.createElement("div");
-  temp.classList.add("currentTemp");
+  const temp = document.querySelector(".currentTemp");
   temp.textContent = `${weatherData.currentTempCelsius}°C`;
-  currentWeather.appendChild(temp);
-
-  const feelTemp = document.createElement("div");
-  feelTemp.classList.add("feelTemp");
-  feelTemp.textContent = `feels like ${weatherData.feelsLikeCelsius}°C`;
-  currentWeather.appendChild(feelTemp);
 
   const forecastSection = document.getElementById("forecast");
   for (let i = 0; i < forecastdays; i++) {

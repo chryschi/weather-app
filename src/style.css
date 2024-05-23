@@ -39,12 +39,6 @@ main {
   margin-top: 100px;
 }
 
-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-}
-
 .location {
   font-size: 3rem;
   grid-area: location;
@@ -79,7 +73,7 @@ section {
   grid-area: feelTemp;
 }
 
-#currentWeather {
+/* #currentWeather {
   display: grid;
   justify-items: center;
   grid-template-columns: auto;
@@ -89,6 +83,18 @@ section {
     "country conditionText feelTemp";
   row-gap: 10px;
   column-gap: 50px;
+} */
+
+#currentWeather {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#forecast {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
 }
 
 #forecast > div {
